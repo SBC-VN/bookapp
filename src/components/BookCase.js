@@ -18,7 +18,7 @@ const BookCase = ({books, changeBook}) => {
         }
     });
 
-    return <div className="bookcase">
+    return <div className="books-case">
         {shelves.map(shelf => {
             return <Shelf key={shelf.id} title={shelf.title} books={shelf.books} changeBook={changeBook} />
         })}

@@ -7,6 +7,7 @@ import BookCase from './components/BookCase';
 function App() {
   // The list of books that I have read, am reading, or want to read.
   const [myBookList, changeBookList] = useState(JSON.parse(window.sessionStorage.getItem('my-book-list')||"[]"));
+  const [showSearchPage, setShowSearchpage] = useState(false);
 
   // Change the shelf that a book is on, without mutating the book list itself.
   function changeBook(book, shelfId) {
@@ -56,12 +57,41 @@ function App() {
   // Return the app body, which is mostly a list of shelves.
   return (
     <div className="App">
-      <header className="App-header">
-        <h1>My Book List</h1>
-      </header>
-      <div className="App-body">
-        <BookCase books={myBookList} changeBook={changeBook} addBook={addBook} removeBook={removeBook} />
-      </div>
+      {showSearchPage ? (
+        <div className="search-books">
+          <div className="search-books-bar">
+            <a
+              className="close-search"
+              onClick={() => setShowSearchpage(!showSearchPage)}
+            >
+              Close
+            </a>
+            <div className="search-books-input-wrapper">
+              <input
+                type="text"
+                placeholder="Search by title, author, or ISBN"
+              />
+            </div>
+          </div>
+          <div className="search-books-results">
+            <ol className="books-grid"></ol>
+          </div>
+        </div>
+      ) : (
+        <div className="list-books">
+          <div className="list-books-title">
+            <h1>MyReads</h1>
+          </div>
+          <div className="list-books-content">
+            <div>
+              <BookCase books={myBookList} changeBook={changeBook} addBook={addBook} removeBook={removeBook} />
+            </div>
+          </div>
+          <div className="open-search">
+            <a onClick={() => setShowSearchpage(!showSearchPage)}>Add a book</a>
+          </div>
+        </div>
+    )}
     </div>
   );
 }
