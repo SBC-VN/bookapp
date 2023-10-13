@@ -12,7 +12,6 @@ function App() {
 
   // Change the shelf that a book is on, without mutating the book list itself.
   function changeBook(book, shelfId) {
-    console.log("changeBook", book, shelfId);
     if (book.hasOwnProperty("shelf") && book.shelf === shelfId) {
       return;
     }
@@ -59,7 +58,7 @@ function App() {
   return (
     <div className="App">
       {showSearchPage ? (
-        <Search myBookList={myBookList} addBookFunction={addBook} setShowSearchpage={setShowSearchpage} />
+        <Search myBookList={myBookList} changeBook={changeBook} setShowSearchpage={setShowSearchpage} />
       ) : (
         <div className="list-books">
           <div className="list-books-title">
@@ -67,7 +66,7 @@ function App() {
           </div>
           <div className="list-books-content">
             <div>
-              <BookCase books={myBookList} changeBook={changeBook} addBook={addBook} removeBook={removeBook} />
+              <BookCase books={myBookList} changeBook={changeBook} />
             </div>
           </div>
           <div className="open-search">

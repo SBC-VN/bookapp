@@ -19,8 +19,8 @@ const Book = ({displayId, info, changeBook}) => {
                     </select>
                 </div>
                 </div>
-                <div className="book-title">{info.title}</div>
-                <div className="book-authors">{info.authors.join(', ')}</div>
+                <div className="book-title">{info.hasOwnProperty('title') ? info.title : "n/a"}</div>
+                <div className="book-authors">{info.hasOwnProperty('authors') ? info.authors.join(', ') : "n/a"}</div>
             </div>
         </li>;
   };
