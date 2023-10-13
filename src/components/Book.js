@@ -7,8 +7,8 @@ const Book = ({displayId, info, changeBook}) => {
                     style={{
                     width: 128,
                     height: 193,
-                    backgroundImage: `url(${info.imageLinks.thumbnail})`
-                    }}
+                    backgroundImage: info.hasOwnProperty("imageLinks") && info.imageLinks.hasOwnProperty("thumbnail") ? `url(${info.imageLinks.thumbnail})` : null}
+                    }
                 ></div>
                 <div className="book-shelf-changer">
                     <select onChange={e => {changeBook(info,e.target.value)}} value={info.shelf}>
