@@ -1,6 +1,4 @@
 const Book = ({displayId, info, changeBook}) => {
-    console.log("Shelf",info.shelf);
-
     return <li>
         <div className="book">
             <div className="book-top">

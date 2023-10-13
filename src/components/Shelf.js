@@ -2,7 +2,9 @@ import Book from "./Book";
 
 const Shelf = ({title, books, changeBook}) => {
     return <div className="bookshelf">
-        <h2 className="bookshelf-title">{title}</h2>
+        {title !== "" ? (
+            <h2 className="bookshelf-title">{title}</h2>
+        ) : null}
         <div className="bookshelf-books">
             <ol className="books-grid">
                 {books.map(book => {

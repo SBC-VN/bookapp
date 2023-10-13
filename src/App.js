@@ -1,8 +1,9 @@
 import logo from './logo.svg';
 import './App.css';
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {get, getAll} from './BooksAPI';
 import BookCase from './components/BookCase';
+import Search from './components/Search';
 
 function App() {
   // The list of books that I have read, am reading, or want to read.
@@ -58,25 +59,7 @@ function App() {
   return (
     <div className="App">
       {showSearchPage ? (
-        <div className="search-books">
-          <div className="search-books-bar">
-            <a
-              className="close-search"
-              onClick={() => setShowSearchpage(!showSearchPage)}
-            >
-              Close
-            </a>
-            <div className="search-books-input-wrapper">
-              <input
-                type="text"
-                placeholder="Search by title, author, or ISBN"
-              />
-            </div>
-          </div>
-          <div className="search-books-results">
-            <ol className="books-grid"></ol>
-          </div>
-        </div>
+        <Search myBookList={myBookList} addBookFunction={addBook} setShowSearchpage={setShowSearchpage} />
       ) : (
         <div className="list-books">
           <div className="list-books-title">
