@@ -1,8 +1,9 @@
 import logo from './logo.svg';
 import './App.css';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {get, getAll} from './BooksAPI';
-import BookCase from './components/BookCase';
+import { Routes, Route, DefaultRoute } from 'react-router-dom';
+import BookList from './components/BookList';
 import Search from './components/Search';
 
 function App() {
@@ -23,6 +24,8 @@ function App() {
 
     // Persist the book list to session storage.
     window.sessionStorage.setItem('my-book-list', JSON.stringify(newBookList));
+
+    // This is where I would also call the BooksAPI to update the shelf for the book.
   }
   
   // Add a book to the list of books that I have read, am reading, or want to read.
@@ -46,34 +49,24 @@ function App() {
       window.sessionStorage.setItem('my-book-list', JSON.stringify(newBookList));
   }
 
-  // Load the initial set of books - from session storage if available, otherwise from the API.
- if (myBookList.length === 0) {
-    getAll().then(allBooks => {
-      changeBookList(allBooks);
-      window.sessionStorage.setItem('my-book-list', JSON.stringify(allBooks));
-      }).catch(err => console.log("Error reading books", err));
-  }
+  useEffect(() => {
+  
+    // Only load the book list from the API if it is not already in session storage and only on app startup.
+    if (myBookList.length === 0) {
+      getAll().then(allBooks => {
+        changeBookList(allBooks);
+        window.sessionStorage.setItem('my-book-list', JSON.stringify(allBooks));
+        }).catch(err => console.log("Error reading books", err));
+      }
+    }, []);
 
-  // Return the app body, which is mostly a list of shelves.
+  // Select (route) between the book list and the search page.
   return (
     <div className="App">
-      {showSearchPage ? (
-        <Search myBookList={myBookList} changeBook={changeBook} setShowSearchpage={setShowSearchpage} />
-      ) : (
-        <div className="list-books">
-          <div className="list-books-title">
-            <h1>MyReads</h1>
-          </div>
-          <div className="list-books-content">
-            <div>
-              <BookCase books={myBookList} changeBook={changeBook} />
-            </div>
-          </div>
-          <div className="open-search">
-            <a onClick={() => setShowSearchpage(!showSearchPage)}>Add a book</a>
-          </div>
-        </div>
-    )}
+      <Routes>
+        <Route exact path="/" element={<BookList myBookList={myBookList} changeBook={changeBook} />} />
+        <Route exact path="/search" element={<Search myBookList={myBookList} changeBook={changeBook} />} />
+      </Routes>
     </div>
   );
 }

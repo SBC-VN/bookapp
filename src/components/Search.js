@@ -1,9 +1,10 @@
 import { useState } from "react";
+import { Link } from 'react-router-dom';
 import {search, getAll} from '../BooksAPI';
 import Shelf from "./Shelf";
 import BookCase from "./BookCase";
 
-const Search = ({myBookList, changeBook, setShowSearchpage}) => {
+const Search = ({myBookList, changeBook}) => {
     const [searchList, changeSearchList] = useState([]);
     let clearedSearch = false;  // Handle timing issues due to async calls.
     
@@ -39,12 +40,7 @@ const Search = ({myBookList, changeBook, setShowSearchpage}) => {
    
     return <div className="search-books">
     <div className="search-books-bar">
-      <a
-        className="close-search"
-        onClick={() => setShowSearchpage(false)}  // If we are showing this, then the value of showSearchPage is true.  Set it to false.
-      >
-        Close
-      </a>
+      <Link to="/" className="close-search">Close</Link>
       <div className="search-books-input-wrapper">
         <input onChange={e => changeSearchTerm(e)}
           type="text"
