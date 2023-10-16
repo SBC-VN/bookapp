@@ -1,3 +1,9 @@
+/**
+* @description Implements the concept of a BookCase, which is a collection of the three shelves of books.
+* @param {json[]} books - The array of (shelved) books.
+* @param {callback} changeBook - A callback function in the parent that will do the actual shelf change.
+*/
+
 import Shelf from "./Shelf";
 
 const BookCase = ({books, changeBook}) => {

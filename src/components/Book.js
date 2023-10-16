@@ -1,4 +1,9 @@
-const Book = ({displayId, info, changeBook}) => {
+/**
+* @description The book component displays a single book on a shelf, and allows the user to change the shelf.
+* @param {json} info - The info (json) of the book.
+* @param {callback} changeBook - A callback function in the parent that will do the actual shelf change.
+*/
+const Book = ({info, changeBook}) => {
     return <li>
         <div className="book">
             <div className="book-top">

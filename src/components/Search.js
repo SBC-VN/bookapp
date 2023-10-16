@@ -1,6 +1,12 @@
+/**
+* @description Encapsulates the search page of the app.
+* @param {json[]} myBookList - The array of (all) books.
+* @param {callback} changeBook - A callback function in the parent that will do the actual shelf change.
+*/
+
 import { useState } from "react";
 import { Link } from 'react-router-dom';
-import {search, getAll} from '../BooksAPI';
+import {search } from '../BooksAPI';
 import Shelf from "./Shelf";
 import BookCase from "./BookCase";
 
@@ -24,7 +30,7 @@ const Search = ({myBookList, changeBook}) => {
                     changeSearchList(newBookList);  
                 }
                 else {
-                    console.log("issue with search",searchResults.error);
+                    //console.log("issue with search",searchResults.error);
                     changeSearchList([]);  // Clear the search results.
                 }
             }).catch(err => console.log("Error reading books", err));

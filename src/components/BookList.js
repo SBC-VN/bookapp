@@ -1,3 +1,10 @@
+/**
+* @description Implements a list of books (not tied to a particular shelf).   This is the main page of the app, pulled out to
+*              make the mainline code more readable.
+* @param {json[]} myBookList - The array of (all) books.
+* @param {callback} changeBook - A callback function in the parent that will do the actual shelf change.
+*/
+
 import { Link } from 'react-router-dom';
 import BookCase from './BookCase';
 
