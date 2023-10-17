@@ -3,6 +3,11 @@
 * @param {json} info - The info (json) of the book.
 * @param {callback} changeBook - A callback function in the parent that will do the actual shelf change.
 */
+
+// Used to define the valid values of the select element.   This is used to do a better check on values than `info.shelf || "none"` when
+// setting the default value of the select element.
+const selectValues = ["currentlyReading", "wantToRead", "read", "none"];
+
 const Book = ({info, changeBook}) => {
     return <li>
         <div className="book">
@@ -16,7 +21,7 @@ const Book = ({info, changeBook}) => {
                     }
                 ></div>
                 <div className="book-shelf-changer">
-                    <select onChange={e => {changeBook(info,e.target.value)}} value={info.shelf}>
+                    <select onChange={e => {changeBook(info,e.target.value)}} value={selectValues.includes(info.shelf) ? info.shelf : "none"}>
                         <option value="currentlyReading">Currently Reading</option>
                         <option value="wantToRead">Want to Read</option>
                         <option value="read">Read</option>
