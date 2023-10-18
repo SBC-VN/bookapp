@@ -53,6 +53,7 @@ function App() {
   
     // Only load the book list from the API if it is not already in session storage and only on app startup.
     if (myBookList.length === 0) {
+      console.log("Calling getAll");
       getAll().then(allBooks => {
         changeBookList(allBooks);
         window.sessionStorage.setItem('my-book-list', JSON.stringify(allBooks));
