@@ -1,15 +1,13 @@
-import logo from './logo.svg';
 import './App.css';
 import { useEffect, useState } from "react";
-import {get, getAll} from './BooksAPI';
-import { Routes, Route, DefaultRoute } from 'react-router-dom';
+import {getAll} from './BooksAPI';
+import { Routes, Route } from 'react-router-dom';
 import BookList from './components/BookList';
 import Search from './components/Search';
 
 function App() {
   // The list of books that I have read, am reading, or want to read.
   const [myBookList, changeBookList] = useState(JSON.parse(window.sessionStorage.getItem('my-book-list')||"[]"));
-  const [showSearchPage, setShowSearchpage] = useState(false);
 
   // Change the shelf that a book is on, without mutating the book list itself.
   function changeBook(book, shelfId) {
@@ -27,28 +25,8 @@ function App() {
 
     // This is where I would also call the BooksAPI to update the shelf for the book.
   }
-  
-  // Add a book to the list of books that I have read, am reading, or want to read.
-  function addBook(book) {
-    if (myBookList.find(b => b.id === book.id)) {
-      return;
-    }
 
-    let newBookList = [].concat(myBookList, [book]);
-    changeBookList(newBookList);
-    window.sessionStorage.setItem('my-book-list', JSON.stringify(newBookList));
-  }
-
-  function removeBook(book) {
-    if (!myBookList.find(b => b.id === book.id)) {
-      return;
-    }
-
-      let newBookList = myBookList.filter(b => b.id !== book.id);
-      changeBookList(newBookList);
-      window.sessionStorage.setItem('my-book-list', JSON.stringify(newBookList));
-  }
-
+  // Load the book list from the database on app startup.
   useEffect(() => {
   
     // Only load the book list from the API if it is not already in session storage and only on app startup.
